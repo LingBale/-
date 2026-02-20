@@ -1,8 +1,8 @@
 ## 命名规则
 - `bool_xxx.py`：布尔盲注脚本
-- `time_xxx.py`：时间盲注脚本（后续添加）
-- `error_xxx.py`：报错注入脚本（后续添加）
-- `union_xxx.py`：联合查询脚本（后续添加）
+- `time_xxx.py`：时间盲注脚本
+- `error_xxx.py`：报错注入脚本
+- `union_xxx.py`：联合查询脚本
 
 示例：
 - `bool_dbname.py`：布尔盲注爆破数据库名
