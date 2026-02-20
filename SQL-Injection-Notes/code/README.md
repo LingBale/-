@@ -1,1 +1,11 @@
+## 命名规则
+- `bool_xxx.py`：布尔盲注脚本
+- `time_xxx.py`：时间盲注脚本（后续添加）
+- `error_xxx.py`：报错注入脚本（后续添加）
+- `union_xxx.py`：联合查询脚本（后续添加）
 
+示例：
+- `bool_dbname.py`：布尔盲注爆破数据库名
+- `bool_tables.py`：布尔盲注爆破表名
+- `bool_columns.py`：布尔盲注爆破字段名
+- `bool_users_passwords.py`：布尔盲注爆破用户名和密码
