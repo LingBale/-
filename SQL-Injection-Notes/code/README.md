@@ -8,4 +8,4 @@
 - `bool_dbname.py`：布尔盲注爆破数据库名
 - `bool_tables.py`：布尔盲注爆破表名
 - `bool_columns.py`：布尔盲注爆破字段名
-- `bool_users_passwords.py`：布尔盲注爆破用户名和密码
+- `bool_users_pw.py`：布尔盲注爆破用户名和密码
