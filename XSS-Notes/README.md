@@ -1,41 +1,38 @@
-# XSS 本地测试环境搭建指南
+# XSS 学习笔记
 
-本目录包含一个完整的 XSS 漏洞测试平台，涵盖反射型、存储型、DOM 型以及多种高级场景（JavaScript 上下文、属性注入、CSS 注入、JSONP 回调等）。
+本目录包含跨站脚本（XSS）的完整学习资料，包括 PDF 笔记、本地测试环境以及多种语言编写的脚本工具。
 
-## 环境要求
+## 📂 目录结构
 
-- Web 服务器（Apache / Nginx）+ PHP（5.6 或 7+，推荐 7+）
-- 文件系统可写（用于 `comments.txt` 存储评论）
-- 浏览器（建议 Chrome、Firefox、Edge 等现代浏览器）
+- `XSS-Notes.pdf`：XSS 详细笔记（50+ 页，涵盖基础概念、检测技巧、绕过手法、挖掘思路、自动化工具、防御机制及 2023-2026 前沿案例）
+- `lab/`：本地测试环境文件（含多种 XSS 漏洞页面）
+  - `index.php`：测试平台导航页
+  - 多个 PHP 文件：反射型、存储型、DOM 型、JavaScript 上下文、属性注入、CSS 注入、JSONP 回调等漏洞场景
+  - `advanced/`：高级场景文件夹
+  - `comments.txt`：存储型 XSS 的数据文件（自动创建）
+  - `README.md`：环境搭建详细说明
+- `code/`：XSS 相关脚本集（Python、JavaScript、Ruby 等）
+  - `esprima.py`：基于 AST 的 Payload 生成器
+  - `Fuzzing.py`：XSS Payload 模糊测试字典生成器
+  - `Jython.py`：Burp Suite 扩展示例（Jython 扫描器）
+  - `Playwright.py`：使用 Playwright 的自动化 XSS 测试脚本（Python）
+  - `puppeteer_xss.js`：使用 Puppeteer 的自动化 XSS 测试脚本（Node.js）
+  - `xss_tampermonkey_helper.user.js`：Tampermonkey 用户脚本，辅助手工测试
+  - `beef_xss_module.rb`：BeEF 自定义模块示例（Ruby）
 
-## 文件说明
+## 🚀 快速开始
 
-| 文件名 | 作用 |
-|-------|------|
-| `index.php` | 测试平台导航页 |
-| `reflective.php` | 反射型 XSS（HTML 元素、属性、JS 变量、注释等上下文） |
-| `stored.php` | 存储型 XSS（基于文件存储的留言板） |
-| `dom.php` | DOM 型 XSS（利用 `location.hash` 注入） |
-| `advanced/js_context.php` | JavaScript 字符串上下文注入 |
-| `advanced/attribute.php` | HTML 属性注入 |
-| `advanced/css_context.php` | CSS 上下文注入（expression、javascript: 等） |
-| `advanced/jsonp.php` | JSONP 回调型 XSS |
-| `comments.txt` | 存储型留言文件（自动创建） |
+1. **搭建本地测试环境**：按照 `lab/README.md` 的步骤配置 Web 服务器并访问测试页面。
+2. **运行自动化脚本**：进入 `code/` 目录，根据脚本说明安装依赖并执行（如 `python Playwright.py`）。
+3. **深入学习笔记**：打开 `XSS-Notes.pdf`，结合测试环境动手实践，理解每个漏洞的原理与利用方式。
 
-## 搭建步骤
+## 📌 注意事项
 
-1. 将整个 `lab/` 目录（或所有文件）复制到 Web 服务器的根目录下（如 Apache 的 `htdocs` 或 `www` 文件夹），例如命名为 `xss-lab`。
-2. 确保 PHP 环境正常运行，且 Web 服务器对当前目录有写入权限（以便 `comments.txt` 可被创建）。
-3. 访问测试平台导航页：`http://localhost/xss-lab/index.php`
-4. 点击链接进入各个漏洞页面，在输入框或 URL 中尝试 XSS Payload。
+- 所有脚本示例均基于本地测试环境编写，若用于其他目标请修改 URL 及判断逻辑。
+- 部分脚本（如 `Playwright.py`、`puppeteer_xss.js`）需要安装对应的浏览器驱动和依赖库，请参考脚本内注释。
+- 测试环境中的 PHP 文件使用了部分 PHP 7+ 语法，若你的 PHP 版本较低（如 5.x），请将 `??` 运算符替换为 `isset` 的三元表达式（详见 `lab/README.md`）。
+- 浏览器安全策略可能影响某些 XSS 的触发（如 DOM 型 XSS 需要对 `location.hash` 进行 `decodeURIComponent` 解码），测试时建议使用多种浏览器或调整安全设置。
 
-## 注意事项
+## ⚖️ 法律声明
 
-⚠️ **此环境包含真实的安全漏洞，仅限本地学习使用，严禁部署到公网！**
-
-- **PHP 版本兼容性**：部分文件（如 `attribute.php`、`css_context.php`、`jsonp.php`）使用了 PHP 7+ 的 `??` 运算符。若你的 PHP 版本低于 7，请将 `??` 替换为 `isset` 的三元表达式，例如：
-  ```php
-  // 原写法
-  $color = $_GET['color'] ?? 'black';
-  // 改为
-  $color = isset($_GET['color']) ? $_GET['color'] : 'black';
+本仓库所有内容（包括笔记、代码、测试环境）**仅供学习和研究使用，严禁用于任何非法目的**。使用者需自行承担因使用不当导致的一切法律责任。请遵守《中华人民共和国网络安全法》及相关法律法规，合理合法地使用网络安全技术。
